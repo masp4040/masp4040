@@ -52,3 +52,285 @@ public class pruebaPersonaje {
 
      }
 }
+package clases;
+
+
+public class Personaje {
+    //atributos
+    private String nombre;
+    private char sexo;
+    protected double posicionX;
+    protected double posicionY;
+    private double damage;
+    private double vida;
+
+    public Personaje(String nombre, char sexo, double x, double y, double damage) {
+        this.nombre = nombre;
+        this.sexo = sexo;
+        this.posicionX = x;
+        this.posicionY = y;
+        this.damage = damage;
+        
+        this.vida=100;
+        
+    }
+  
+    
+    //metodos
+    public void golpear(Personaje p){
+        p.recibirImpacto(this.damage/this.calcularDistanciaRespectoPersonaje(p));
+    }
+    
+    public void recibirImpacto(double d){
+        this.setVida(this.getVida()-d);
+        
+             
+    
+    }
+    
+    
+    public double calcularDistanciaRespectoPersonaje(Personaje p){
+    return Math.sqrt(
+            Math.pow(this.posicionX-p.posicionX,2)+
+            Math.pow(this.posicionY-p.posicionY, 2));
+    }
+    
+    //getters and setter
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public char getSexo() {
+        return this.sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
+    }
+
+    public double getPosicionX() {
+        return this.posicionX;
+    }
+
+    public void setPosicionX(double posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public double getPosicionY() {
+        return this.posicionY;
+    }
+
+    public void setPosicionY(double posicionY) {
+        this.posicionY = posicionY;
+    }
+
+    public double getDamage() {
+        return this.damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+
+    public double getVida() {
+        return this.vida;
+    }
+
+    public void setVida(double vida) {
+        
+         if (this.vida<0){ //filtra todos los numeros negativos o menores que cero
+            this.vida=0;
+        }
+        else if(this.vida<101){ //filtra todos los numeros de cero a cien
+            this.vida = vida;
+        }
+        else{               //filtra todos los mayores a cien
+            this.vida=100;
+        }    
+    
+}
+
+    @Override
+    public String toString() {
+        return 
+         "Personaje\n"
+                + "" 
+                + "nombre =" + nombre + ", sexo =" + sexo + ", posicionX =" + posicionX +"\n"+ ", posicionY =" + posicionY + ", damage =" + damage + ", vida =" + vida + '}';
+    }
+
+    
+    
+}
+package clases;
+
+
+public class Jugador extends Personaje{
+    //atributos
+    private int numeroBotiquines;
+
+    public Jugador(String nombre, char sexo, double x, double y, double damage) {
+        super(nombre, sexo, x, y, damage);
+        
+    }
+    
+    
+    
+     
+     
+    // getter and setter
+
+    
+
+    public int getNumeroBotiquines() {
+        return this.numeroBotiquines;
+    }
+
+    public void setNumeroBotiquines(int numeroBotiquines) {
+        this.numeroBotiquines = numeroBotiquines;
+    }
+    
+    
+    //metodos
+    
+    public void usarBotiquin(){
+        if (this.numeroBotiquines >0){
+            this.numeroBotiquines --;
+            this.setVida(this.getVida() +5);      
+        }
+       
+        
+    }   
+        
+        
+        
+        
+        
+    
+    public void recogerBotiquin(){
+        this.numeroBotiquines ++;
+    }
+    
+    
+    public void moverDerecha(double d){
+        this.posicionX += d;
+        
+    }
+    
+    
+    public void moverIzquierda(double d){
+        this.posicionX -= d;
+        
+    }
+    
+    
+    public void moverArriba(double d){
+        this.posicionY += d;
+        
+    }
+    
+    public void moverAbajo(double d){
+        this.posicionY -= d;
+        
+    }
+    public void golpear(Enemigo p){
+        super.golpear(p);
+        p.evolucionar();
+        
+    }
+            
+    @Override
+    public String toString() {
+        return "Jugador { " + 
+         super.toString()+ "numeroBotiquines=" + this.numeroBotiquines + '}';
+    }
+    
+  
+}
+package clases;
+
+
+public class Enemigo extends Personaje {
+    //atributos
+    private int evolucionesAplicadas;
+    private int resistencia;
+
+    public Enemigo( String nombre, char sexo, double x, double y, double damage) {
+        super(nombre,sexo,x,y,damage);
+        
+        this.resistencia =1;
+    }
+    
+    
+    
+
+    
+     //getter and setter
+
+    public int getEvolucionesAplicadas() {
+        return this.evolucionesAplicadas;
+    }
+
+    public void setEvolucionesAplicadas(int evolucionesAplicadas) {
+        this.evolucionesAplicadas = evolucionesAplicadas;
+    }
+
+    public int getResistencia() {
+        return this.resistencia;
+    }
+
+    public void setResistencia(int resistencia) {
+        this.resistencia = resistencia;
+    }
+    
+    //metodos
+    
+    public void evolucionar(){
+        if (this.getVida()<31 && this.evolucionesAplicadas==0){
+            this.setDamage(this.getDamage()+20);
+            this.evolucionesAplicadas +=1;
+        }
+        if (this.getVida()<11 && this.evolucionesAplicadas==1){
+            this.resistencia +=1;
+            this.evolucionesAplicadas +=1;
+        }      
+    }
+    
+    @Override
+    public void recibirImpacto(double d){
+        //this.setVida(d/this.resistencia);
+        this.setVida(this.getVida()-d/this.resistencia);
+        
+        
+    
+    }
+
+    @Override
+    public String toString() {
+        return "Enemigo{" + 
+        super.toString()+
+        "evolucionesAplicadas=" + evolucionesAplicadas +
+        ", resistencia=" + resistencia + '}';
+    }
+    
+    
+    
+    
+    
+
+}
+
+
+
+
+
+
+    
+   
+    
+    
+
