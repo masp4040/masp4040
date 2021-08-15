@@ -143,10 +143,10 @@ public class Personaje {
 
     public void setVida(double vida) {
         
-         if (this.vida<0){ //filtra todos los numeros negativos o menores que cero
+         if (vida<0){ //filtra todos los numeros negativos o menores que cero
             this.vida=0;
         }
-        else if(this.vida<101){ //filtra todos los numeros de cero a cien
+        else if(vida<101){ //filtra todos los numeros de cero a cien
             this.vida = vida;
         }
         else{               //filtra todos los mayores a cien
