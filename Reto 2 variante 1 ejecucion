@@ -1,0 +1,54 @@
+package clases;
+
+
+public class pruebaPersonaje {
+     public static void main( String[] args ) throws Exception {
+         Jugador gamer = new Jugador(" Explorador ",'m',0,5,100);
+         
+         Enemigo enemy = new Enemigo(" Bitter ",'f',0,0,80);
+         System .out .println( "1 \n " + gamer + " \n " + enemy );
+         
+         
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         gamer.moverDerecha(10);
+         gamer.moverAbajo(5);
+         System .out .println( "2 \n " + gamer + " \n " + enemy );
+         
+         enemy.golpear(gamer);
+         enemy.golpear(gamer);
+         gamer.recogerBotiquin();
+         System .out .println( "3 \n " + gamer + " \n " + enemy );
+         
+         
+         gamer.usarBotiquin();
+         gamer.usarBotiquin();
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         System .out .println( "4 \n " + gamer + " \n " + enemy );
+         
+         
+         enemy.golpear(gamer);
+         enemy.golpear(gamer);
+         System .out .println( "5 \n " + gamer + " \n " + enemy );
+         
+         
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         System .out .println( "6 \n " + gamer + " \n " + enemy );
+         
+         
+         
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         gamer.golpear(enemy);
+         System .out .println( "7 \n " + gamer + " \n " + enemy );
+         
+         
+          
+          
+         
+
+     }
+}
