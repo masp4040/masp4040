@@ -1,0 +1,463 @@
+package nuevoreto;
+
+
+public abstract class Vehiculo {
+    
+    
+    
+    private String nombreConductor;
+    private int nPasajeros=0;
+    private int nMaximoPasajeros;
+    private double cantidadDinero=0;
+    private double localizacionX= 0;
+    private double localizacionY=0;
+    private boolean aireAcondicionadoActivado=false;
+    private boolean motorEncendido=false;
+    private boolean wifiEncendido=false;
+    private boolean enMarcha=false;
+    
+    //CONSTRUCTOR
+
+    public Vehiculo(String nombreConductor) {
+        this.nombreConductor = nombreConductor;
+    }
+    
+    public Vehiculo(String nombreConductor, int nMaximoPasajeros) {
+        this.nombreConductor = nombreConductor;
+        this.nMaximoPasajeros = nMaximoPasajeros;
+    }
+
+    
+    //Métodos
+    
+    public double calcularDistanciaAcopio(){
+        
+        return Math.sqrt(Math.pow(this.localizacionX, 2) + Math.pow(this.localizacionY, 2));
+    }
+    
+    public void gestionarAireAcondicionado(){
+        if(this.motorEncendido){
+            this.aireAcondicionadoActivado =!this.aireAcondicionadoActivado ;
+        }
+        
+    }
+    public void gestionarMotor(){
+        this.motorEncendido = !this.motorEncendido;
+        if (!this.motorEncendido){
+            this.wifiEncendido = false;
+            this.aireAcondicionadoActivado =false;
+            this.enMarcha=false;
+        }
+        
+    }
+    
+    
+    public void gestionarWifi(){
+        if(this.isMotorEncendido() && !this.isWifiEncendido()){
+            this.setWifiEncendido(true);
+        }
+        else{
+            this.setWifiEncendido(false);
+            
+        }
+    }
+
+  
+    
+    public abstract void gestionarMarcha();
+    
+    public void dejarPasajero(){
+         if(this.getnPasajeros() >0){
+          //this.setnPasajeros(this.getnPasajeros()-1);
+          nPasajeros-=1;
+         }
+      }
+    
+    public void moverDerecha(double d){
+      if (this.motorEncendido && this.enMarcha){
+        this.localizacionX += d;
+        }
+        
+    }
+    public void moverIzquierda(double d){
+        if(this.motorEncendido && this.enMarcha){
+            this.localizacionX-=d;
+        }
+        
+    }
+    public void moverArriba(double d){
+        if(this.motorEncendido && this.enMarcha){
+            this.localizacionY +=d;
+        
+        }
+    }
+    public void moverAbajo(double d){
+        if(this.motorEncendido && this.enMarcha){
+            this.localizacionY -=d;
+        
+        }
+    }
+//Setter and Getters
+
+        public String getNombreConductor() {
+            return nombreConductor;
+        }
+
+        public void setNombreConductor(String nombreConductor) {
+            this.nombreConductor = nombreConductor;
+        }
+
+        public int getnPasajeros() {
+            return nPasajeros;
+        }
+
+        public void setnPasajeros(int nPasajeros) {
+            this.nPasajeros = nPasajeros;
+        }
+
+        public int getnMaximoPasajeros() {
+            return nMaximoPasajeros;
+        }
+
+        public void setnMaximoPasajeros(int nMaximoPasajeros) {
+            this.nMaximoPasajeros = nMaximoPasajeros;
+        }
+
+        public double getCantidadDinero() {
+            return cantidadDinero;
+        }
+
+        public void setCantidadDinero(double cantidadDinero) {
+            this.cantidadDinero = cantidadDinero;
+        }
+
+        public double getLocalizacionX() {
+            return localizacionX;
+        }
+
+        public void setLocalizacionX(double localizacionX) {
+            this.localizacionX = localizacionX;
+        }
+
+        public double getLocalizacionY() {
+            return localizacionY;
+        }
+
+        public void setLocalizacionY(double localizacionY) {
+            this.localizacionY = localizacionY;
+        }
+
+        public boolean isAireAcondicionadoActivado() {
+            return aireAcondicionadoActivado;
+        }
+
+        public void setAireAcondicionadoActivado(boolean aireAcondicionadoActivado) {
+            this.aireAcondicionadoActivado = aireAcondicionadoActivado;
+        }
+
+        public boolean isMotorEncendido() {
+            return motorEncendido;
+        }
+
+        public void setMotorEncendido(boolean motorEncendido) {
+            this.motorEncendido = motorEncendido;
+        }
+
+        public boolean isWifiEncendido() {
+            return wifiEncendido;
+        }
+
+        public void setWifiEncendido(boolean wifiEncendido) {
+            this.wifiEncendido = wifiEncendido;
+        }
+
+        public boolean isEnMarcha() {
+            return enMarcha;
+        }
+
+        public void setEnMarcha(boolean enMarcha) {
+            this.enMarcha = enMarcha;
+        }
+
+    @Override
+    public String toString() {
+        return "Vehiculo" +"\n"+ " nombreConductor = " + this.nombreConductor +"\n"+ "nPasajeros = " + 
+             this.nPasajeros +"\n"+ " cantidadDinero=" + this.cantidadDinero +"\n"+
+             " nMaximoPasajeros=" + this.nMaximoPasajeros +"\n"+
+             " localizacionX=" + this.localizacionX +"\n"+ " localizacionY=" +
+             this.localizacionY +"\n"+ " aireAcondicionadoActivado=" + aireAcondicionadoActivado +"\n"+
+             " motorEncendido=" + motorEncendido +"\n"+ " wifiEncendido=" + wifiEncendido +"\n"+
+             " enMarcha=" + enMarcha + "";
+    }
+    
+    
+}
+
+
+    package nuevoreto;
+
+
+public class Autobus extends Vehiculo{
+    //Inserte acá los atributos
+     private boolean puertaAbierta = false;
+    
+    
+    //Inserte acá el método constructor
+    public Autobus(String nombreConductor, int nMaximoPasajeros) {
+        super(nombreConductor, nMaximoPasajeros);
+      }
+    
+    
+    
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+    
+    public void recogerPasajero(int estrato){
+       // this.setCantidadDinero(this.getCantidadDinero() + this.calcularPasaje(estrato));
+       
+        if (this.getnPasajeros() < this.getnMaximoPasajeros() && this.puertaAbierta){
+            this.setCantidadDinero(this.getCantidadDinero()+ calcularPasaje(estrato));
+            this.setnPasajeros(this.getnPasajeros()+1);
+        }
+     }
+       
+     
+     public void gestionarPuerta(){
+           this.puertaAbierta= !this.isEnMarcha() && !this.puertaAbierta;
+         // this.setnPasajeros(this.getnPasajeros()-1);
+
+         
+     }
+    @Override
+    public void gestionarMarcha(){
+    
+       setEnMarcha(!this.isEnMarcha() && !this.isPuertaAbierta() );
+    }
+          
+    
+    public static double calcularPasaje(int estrato){
+        if (estrato == 0 || estrato==1 || estrato ==2 ){
+              return 1500;
+        }else if (estrato == 3|| estrato ==4){
+                 return 2600;
+            }
+            else
+            {
+              return 3000;
+            }
+    }
+    
+    //Inserte acá los SETTERS Y GETTERS
+  
+    public boolean isPuertaAbierta() {
+        return puertaAbierta;
+    }
+
+    public void setPuertaAbierta(boolean puertaAbierta) {
+        this.puertaAbierta = puertaAbierta;
+    }
+
+    @Override
+    public String toString() {
+        return "Autobus{" +super.toString()+"\n"+
+                "puertaAbierta=" + puertaAbierta +"\n"+ '}';
+    }
+     
+    
+}
+package nuevoreto;
+
+
+public class Taxi extends Vehiculo {
+     //Inserte acá los atributos
+    
+    private double distanciaRecorrida=0;
+    private boolean segurosActivados=false;
+    
+    //Inserte acá el método constructor
+    
+    public Taxi(String nombreConductor){
+        super(nombreConductor,1);
+    }
+    
+    
+    public Taxi(boolean segurosActivados, String nombreConductor, int nMaximoPasajeros) {
+        super(nombreConductor, nMaximoPasajeros);
+        this.segurosActivados = segurosActivados;
+    }
+    
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+    
+     public void reiniciarTaximetro(){
+        this.setDistanciaRecorrida(0);
+        
+    }
+    public void presionarBotonPanico(){
+        this.setEnMarcha(false);
+         this.reiniciarTaximetro();
+        this.setSegurosActivados(false);
+        this.setnPasajeros(0);
+        
+        
+    }
+    @Override 
+    public void dejarPasajero(){
+        if(this.getnPasajeros() >0 && !this.isEnMarcha()){
+           this.setnPasajeros(this.getnPasajeros()-1);
+         
+           this.setCantidadDinero(this.getCantidadDinero()+this.calcularPasaje());
+           this.reiniciarTaximetro();
+        }
+       
+    }
+    public void recogerPasajero(){
+       if (!this.isSegurosActivados() && this.getnPasajeros()==0){
+           this.setnPasajeros(this.getnPasajeros()+1);
+           
+       }
+    }
+    @Override
+    public void gestionarMarcha(){
+       this.setEnMarcha(!this.isEnMarcha() && this.segurosActivados);
+      
+    }
+
+    @Override
+    public void moverDerecha(double d){
+        if (this.isEnMarcha() && isSegurosActivados()){
+            this.setLocalizacionX(this.getLocalizacionX()+d);
+            }
+            if (this.getnPasajeros()>0){
+                this.setDistanciaRecorrida(this.getDistanciaRecorrida()+d);
+            }
+    }
+     
+    @Override
+    public void moverIzquierda(double d){
+        if (this.isEnMarcha() ){
+            this.setLocalizacionX(this.getLocalizacionX()-d);
+            if (this.getnPasajeros()>0){
+                this.setDistanciaRecorrida(this.getDistanciaRecorrida()+d);
+            }
+        }
+    
+        
+    }
+    @Override
+    public void moverArriba(double d){
+        if (this.isEnMarcha()){
+             this.setLocalizacionY(this.getLocalizacionY()+d);
+             if (this.getnPasajeros()>0){
+                this.setDistanciaRecorrida(this.getDistanciaRecorrida()+d);
+            }
+        }
+        
+    }
+    @Override
+    public void moverAbajo(double d){
+         if (this.isEnMarcha()){
+             this.setLocalizacionY(this.getLocalizacionY()-d);
+             if (this.getnPasajeros()>0){
+                this.setDistanciaRecorrida(this.getDistanciaRecorrida()+d);
+            }
+        }
+        
+    }
+    public double calcularPasaje(){
+        return 3000 + 2300*(this.getDistanciaRecorrida());
+        
+    }
+    
+    public void gestionarSeguros(){
+        if (!this.isEnMarcha() && this.isSegurosActivados()){
+            this.setSegurosActivados(false);
+        }else{
+            this.setSegurosActivados(true);
+        }
+    }
+        
+    
+    //Inserte acá los SETTERS Y GETTERS
+    
+    public double getDistanciaRecorrida() {
+        return distanciaRecorrida;
+    }
+
+    public void setDistanciaRecorrida(double distanciaRecorrida) {
+        this.distanciaRecorrida = distanciaRecorrida;
+    }
+
+    public boolean isSegurosActivados() {
+        return segurosActivados;
+    }
+
+    public void setSegurosActivados(boolean segurosActivados) {
+        this.segurosActivados = segurosActivados;
+    }
+
+    @Override
+    public String toString() {
+        return "Taxi{"+"\n" +super.toString()+
+                "\n"+"distanciaRecorrida=" + distanciaRecorrida +
+                "\n"+", segurosActivados=" + segurosActivados + '}';
+    }
+    
+}
+package nuevoreto;
+
+
+public class pruebaReto {
+
+    
+    public static void main(String[] args) throws Exception{
+       Autobus a= new Autobus("pepe",30);
+        System.out.println(a);
+       Taxi b=new Taxi("pepito"); 
+        
+        a.recogerPasajero(2);
+        System.out.println("2 \n"+a);
+        
+        a.gestionarPuerta();
+        a.gestionarMarcha();
+        System.out.println("3 \n"+a);
+        
+        a.recogerPasajero(2);
+        a.gestionarMarcha();
+        a.gestionarPuerta();
+        System.out.println("4 \n"+a);
+        
+        a.moverArriba(2);
+        a.moverDerecha(5);
+        a.gestionarWifi();
+        a.gestionarAireAcondicionado();
+        
+        a.gestionarMotor();
+        a.moverIzquierda(2);
+        System.out.println("5 \n"+a);
+        
+        System.out.println("1 \n"+b);
+        
+        b.gestionarMotor();
+        b.gestionarMarcha();
+        b.recogerPasajero();
+        System.out.println("2 \n"+b);
+        
+        b.gestionarMarcha();
+        b.recogerPasajero();
+        b.moverArriba(10);
+        b.moverDerecha(0);
+        b.gestionarSeguros();
+        b.moverAbajo(10);
+        b.moverIzquierda(13);
+        System.out.println("3 \n"+b);
+        
+        b.gestionarAireAcondicionado();
+        b.gestionarWifi();
+        b.gestionarMotor();
+        b.presionarBotonPanico();
+        System.out.println("4 \n"+b);
+        
+        
+    }   
+    
+}          
+                     
