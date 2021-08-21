@@ -1,0 +1,153 @@
+//EL CALIFICADOR GENERARÁ ERROR SI USTED NO IMPLEMENTA TODOS LOS MÉTODOS ESPECIFICADOS EN EL ENUNCIADO
+public abstract class Asiento {
+
+    //Inserte acá los atributos
+    
+    private char tipo;
+    private String ID;
+    private boolean pantallaEncendida=false;
+    private double inclinacionSilla= 90;
+    private boolean luzLecturaEncendida=false;
+    private boolean luzAsistenciaEncendida=false;
+    private boolean aireAcondicionadoEncendido=false;
+
+    //Inserte acá el método constructor
+    
+    public Asiento(String ID,char tipo) {
+        this.tipo = tipo;
+        this.ID = ID;
+}
+    //Inserte acá los SETTERS Y GETTERS
+    
+    public char getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getID() {
+        return this.ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public boolean isPantallaEncendida() {
+        return this.pantallaEncendida;
+    }
+
+    public void setPantallaEncendida(boolean pantallaEncendida) {
+        this.pantallaEncendida = pantallaEncendida;
+    }
+
+    public double getInclinacionSilla() {
+        return this.inclinacionSilla;
+    }
+
+    public void setInclinacionSilla(double inclinacionSilla) {
+        this.inclinacionSilla = inclinacionSilla;
+    }
+
+    public boolean isLuzLecturaEncendida() {
+        return this.luzLecturaEncendida;
+    }
+
+    public void setLuzLecturaEncendida(boolean luzLecturaEncendida) {
+        this.luzLecturaEncendida = luzLecturaEncendida;
+    }
+
+    public boolean isLuzAsistenciaEncendida() {
+        return this.luzAsistenciaEncendida;
+    }
+
+    public void setLuzAsistenciaEncendida(boolean luzAsistenciaEncendida) {
+        this.luzAsistenciaEncendida = luzAsistenciaEncendida;
+    }
+
+    public boolean isAireAcondicionadoEncendido() {
+        return this.aireAcondicionadoEncendido;
+    }
+
+    public void setAireAcondicionadoEncendido(boolean aireAcondicionadoEncendido) {
+        this.aireAcondicionadoEncendido = aireAcondicionadoEncendido;
+    }
+
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+    public  void gestionarAireAcondicionado(){
+        if(aireAcondicionadoEncendido==true){
+            aireAcondicionadoEncendido=false;
+        }
+        else{
+            aireAcondicionadoEncendido=true;
+        }
+    }
+    
+    public void gestionarPantalla(){
+        if(pantallaEncendida==true){
+            pantallaEncendida=false;
+        }
+        else{
+            pantallaEncendida=true;
+        }
+    }
+    
+    public void gestionarLuzLectura(){
+        if(this.luzLecturaEncendida==true){
+            this.luzLecturaEncendida=false;
+        }
+        else{
+            this.luzLecturaEncendida=true;
+        }
+    }
+    
+    public void gestionarLuzAsistencia(){
+        if(luzAsistenciaEncendida==true){
+            luzAsistenciaEncendida=false;
+        }
+        else{
+            luzAsistenciaEncendida=true;
+        }
+    }
+    
+    public void aumentarInclinacion(double d){
+        if(inclinacionSilla+d <=135){
+            inclinacionSilla +=d;
+        }
+        else{
+            inclinacionSilla = 135;
+        }
+    }
+    
+    public void disminuirInclinacion(double d){
+        if(inclinacionSilla -d>=0){
+            inclinacionSilla -=d;
+        }
+        else{
+            inclinacionSilla = 0;
+        }
+    }
+    
+    public abstract String imprimirMenuPantalla();
+    }
+
+
+//EL CALIFICADOR GENERARÁ ERROR SI USTED NO IMPLEMENTA TODOS LOS MÉTODOS ESPECIFICADOS EN EL ENUNCIADO
+public class Bronce extends Asiento{
+                // ^ hereda de Asiento
+
+    //Inserte acá el método constructor
+    public Bronce (String ID, char tipo){
+        
+        super(ID,tipo);
+    }
+
+
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+    public String imprimirMenuPantalla(){
+        return "BRONCE";
+    }
+
+}
