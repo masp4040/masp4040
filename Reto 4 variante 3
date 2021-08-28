@@ -1,0 +1,187 @@
+Condominio lasAcacias = new Condominio();
+        System .out .println( lasAcacias );
+        
+        Inmueble casa1 = new Inmueble( "1", "Juan", 1500000, 3 );
+        Inmueble casa2 = new Inmueble( "2", "miguel", 1200000, 4 );
+        Inmueble casa3 = new Inmueble( "3", "luisa", 1000000, 6 );
+        Inmueble casa4 = new Inmueble( "4", "aleja", 1800000, 5 );
+        Inmueble casa5 = new Inmueble( "5", "pepe", 2200000, 12 );
+        
+        System .out .println( lasAcacias );
+        
+        //lasAcacias.agregarInmueble(casa2);
+       //System.out.println(lasAcacias);
+        
+        lasAcacias.agregarInmueble(casa1);
+        lasAcacias.agregarInmueble(casa2);
+        lasAcacias.agregarInmueble(casa3);
+        lasAcacias.agregarInmueble(casa4);
+        lasAcacias.agregarInmueble(casa5);
+        
+        System.out.println(lasAcacias);
+        
+        lasAcacias.eliminarInmueble("1");
+        System.out.println(lasAcacias);
+        
+        System .out .println( "arriendos mensuales todos los inmuebles: " + lasAcacias .calcularArriendoMensualCondominio() );
+        System .out .println( "promedio costo mensual de los inmuebles: " + lasAcacias .promedioCostoInmueble() );
+        System .out .println( "desviacion estandar costo mensual de los inmuebles: " + lasAcacias .desviacionEstandarCostoInmueble() );
+        
+        package retocuatroluisa;
+
+
+public class Inmueble {
+    
+    //Inserte acá los atributos
+    
+    private String nCasa;
+    private String IDArrendador;
+    private double costoMensual;
+    private int cantidadMesesArrendado;
+    
+    //Inserte acá el método constructor
+    
+    public Inmueble(String nCasa, String IDArrendador, double costoMensual, 
+            int cantidadMesesArrendado) {
+        this.nCasa = nCasa;
+        this.IDArrendador = IDArrendador;
+        this.costoMensual = costoMensual;
+        this.cantidadMesesArrendado = cantidadMesesArrendado;
+    }    
+    
+    //Inserte acá los SETTERS Y GETTERS
+    
+
+    public void setnCasa(String nCasa) {
+        this.nCasa = nCasa;
+    }
+
+    public void setIDArrendador(String IDArrendador) {
+        this.IDArrendador = IDArrendador;
+    }
+
+    public void setCostoMensual(double costoMensual) {
+        this.costoMensual = costoMensual;
+    }
+
+    public void setCantidadMesesArrendado(int cantidadMesesArrendado) {
+        this.cantidadMesesArrendado = cantidadMesesArrendado;
+    }
+
+    public String getnCasa() {
+        return nCasa;
+    }
+
+    public String getIDArrendador() {
+        return IDArrendador;
+    }
+
+    public double getCostoMensual() {
+        return costoMensual;
+    }
+
+    public int getCantidadMesesArrendado() {
+        return cantidadMesesArrendado;
+    }
+
+    @Override
+    public String toString() {
+        return "Inmueble{" +
+                "\n nCasa=" + nCasa +
+                " IDArrendador = " + IDArrendador +
+                " costoMensual =" + costoMensual + 
+                " cantidadMesesArrendado = " + cantidadMesesArrendado + '}';
+    }
+
+    
+}
+
+package retocuatroluisa;
+
+import java.util.ArrayList;
+        
+public class Condominio {
+    //Inserte acá los atributos
+    
+    private ArrayList<Inmueble> inmuebles = new ArrayList<>();
+
+    //Inserte acá el método constructor
+
+    public Condominio() {
+    }
+    
+       
+    //Inserte acá los SETTERS Y GETTERS
+
+    public ArrayList<Inmueble> getInmuebles() {
+        return inmuebles;
+    }
+
+    public void setInmuebles(ArrayList<Inmueble> inmuebles) {
+        this.inmuebles = inmuebles;
+    }
+
+    //Metodos
+    
+    public void agregarInmueble(Inmueble i){
+        //for(int m=0;m<inmuebles.size();m++){
+         //    if(inmuebles.get(m).getnCasa().equals(m)){
+                 inmuebles.add(i);
+        
+                
+        }        
+                
+    
+    
+    public void eliminarInmueble(String ID){
+    for(int m=0;m<inmuebles.size();m++){
+             if(inmuebles.get(m).getnCasa().equals(ID)){
+                 inmuebles.remove(m);
+             }
+
+    }
+    }
+    
+    public double calcularArriendoMensualCondominio(){
+        double arriendo= 0;
+        for(int i=0;i<inmuebles.size();i++){
+            arriendo += inmuebles.get(i).getCostoMensual();
+           
+    }
+        return arriendo;
+    } 
+        
+    
+    
+    
+    public double promedioCostoInmueble(){
+    double promedio=0;
+        for(int m=0;m<inmuebles.size();m++){
+        promedio += inmuebles.get(m).getCostoMensual();
+        }
+        return promedio/inmuebles.size();
+    
+    }
+
+
+    
+    public double desviacionEstandarCostoInmueble(){
+        double desviacion;
+    double datoacum = 0;    
+    for(int m=0;m<inmuebles.size();m++){
+          datoacum += Math.pow(inmuebles.get(m).getCostoMensual()- promedioCostoInmueble(),2);  
+    }
+    desviacion = Math.sqrt((1/(inmuebles.size()*1.0)) * datoacum);
+    
+    return desviacion;    
+    }
+
+    @Override
+    public String toString() {
+        return "Condominio{" +
+                "\ninmuebles=" + inmuebles + '}';
+    }
+
+}
+
+    
