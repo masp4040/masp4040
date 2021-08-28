@@ -1,3 +1,44 @@
+package retocuatro;
+
+public class RetoCuatro {
+
+    public static void main(String[] args) throws Exception {
+        Nomina empresa=new Nomina();
+        System.out.println(empresa);
+        
+        Trabajador miguel = new Trabajador("miguel","79885941",120,40,24,11,1977);
+        Trabajador luisa = new Trabajador("luisa","1016013942",160,30,12,9,1980);
+        Trabajador aleja = new Trabajador("aleja","100022299",200,80,30,20,2001);
+        Trabajador luis = new Trabajador ("luis","3333333",400,90,12,1,1986);
+        
+        
+        empresa.agregarTrabajador(luis);
+        empresa.agregarTrabajador(luisa);
+        empresa.agregarTrabajador(aleja);
+        empresa.agregarTrabajador(miguel);
+        
+        System.out.println(empresa);
+        
+        
+        System.out.println("+++++++++++++++++++\n");
+        
+        empresa .eliminarTrabajador( "79885941" );
+        System .out .println( empresa );
+        
+        empresa.eliminarTrabajador("100022299");
+        System .out .println( empresa );
+        
+        
+
+       System .out .println( "total salarios quincenales de todos los trabajadores: " + empresa .calcularSalarioQuincenalNomina() );
+        System .out .println( "total salarios quincenales de todos los trabajadores: " + empresa .calcularSalarioQuincenalNomina() );
+        System .out .println( "promedio edad trabajadores en nomina: " + empresa .promedioEdadNomina() );
+        System .out .println( "desviacion estandar edad trabajadores en nomina: " + empresa .desviacionEstandarEdadNomina() );
+        
+    }
+    
+}
+
 Trabajador.java
 
 L CALIFICADOR GENERARÁ ERROR SI USTED NO IMPLEMENTA TODOS LOS MÉTODOS ESPECIFICADOS EN EL ENUNCIADO
