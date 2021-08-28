@@ -1,0 +1,196 @@
+Trabajador.java
+
+L CALIFICADOR GENERARÁ ERROR SI USTED NO IMPLEMENTA TODOS LOS MÉTODOS ESPECIFICADOS EN EL ENUNCIADO
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+public class Trabajador {
+
+    //Inserte acá los atributos
+    public String nombre;
+    public String CC;
+    public double salarioPorHora;
+    public int horasTrabajadas;
+    public int diaNacimiento;
+    public int mesNacimiento;
+    public int yearNacimiento;
+
+    //Inserte acá el método constructor
+    public Trabajador(String nombre, String CC, double salarioPorHora, int horasTrabajadas, int diaNacimiento, int mesNacimiento, int yearNacimiento) {
+        this.nombre = nombre;
+        this.CC = CC;
+        this.salarioPorHora = salarioPorHora;
+        this.horasTrabajadas = horasTrabajadas;
+        this.diaNacimiento = diaNacimiento;
+        this.mesNacimiento = mesNacimiento;
+        this.yearNacimiento = yearNacimiento;
+        
+        
+    }
+
+    //Inserte acá los SETTERS Y GETTERS
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCC() {
+        return this.CC;
+    }
+
+    public void setCC(String CC) {
+        this.CC = CC;
+    }
+
+    public double getSalarioPorHora() {
+        return this.salarioPorHora;
+    }
+
+    public void setSalarioPorHora(double salarioPorHora) {
+        this.salarioPorHora = salarioPorHora;
+    }
+
+    public int getHorasTrabajadas() {
+        return this.horasTrabajadas;
+    }
+
+    public void setHorasTrabajadas(int horasTrabajadas) {
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    public int getDiaNacimiento() {
+        return this.diaNacimiento;
+    }
+
+    public void setDiaNacimiento(int diaNacimiento) {
+        if(diaNacimiento>0 && diaNacimiento<32)
+        this.diaNacimiento = diaNacimiento;
+    }
+
+    public int getMesNacimiento() {
+        return this.mesNacimiento;
+    }
+
+    public void setMesNacimiento(int mesNacimiento) {
+        if(mesNacimiento>0 && diaNacimiento<32)
+        this.mesNacimiento = mesNacimiento;
+    }
+
+    public int getYearNacimiento() {
+        return this.yearNacimiento;
+    }
+
+    
+    public void setYearNacimiento(int yearNacimiento) { 
+        if(yearNacimiento>1899 && yearNacimiento<3001)
+        this.yearNacimiento = yearNacimiento;
+    }
+
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+    
+    
+    //*************************************N O  E L I M I N A R  E S T E  M É T O D O*************************************
+    public int calcularEdad(){
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd");
+        int diaActual = Integer.valueOf(myDateObj.format(myFormatObj));
+        
+        DateTimeFormatter myFormatObj2 = DateTimeFormatter.ofPattern("MM");
+        int mesActual = Integer.valueOf(myDateObj.format(myFormatObj2));
+        
+        DateTimeFormatter myFormatObj3 = DateTimeFormatter.ofPattern("yyyy");
+        int yearActual = Integer.valueOf(myDateObj.format(myFormatObj3));
+        
+        if(mesActual > mesNacimiento || mesActual == mesNacimiento && diaActual >= diaNacimiento)
+            return yearActual - yearNacimiento;
+        
+        return yearActual - yearNacimiento - 1;     
+    }
+    public double salarioQuincenal(){
+        return salarioPorHora * horasTrabajadas;
+    }
+
+}
+
+Nomina.java
+//EL CALIFICADOR GENERARÁ ERROR SI USTED NO IMPLEMENTA TODOS LOS MÉTODOS ESPECIFICADOS EN EL ENUNCIADO
+import java.util.ArrayList;
+public class Nomina {
+
+    //Inserte acá los atributos
+    private ArrayList<Trabajador>trabajadores=new ArrayList<>(); 
+
+    //Inserte acá el método constructor
+    public Nomina (){
+        this.trabajadores = new ArrayList<>();
+    }
+
+    //Inserte acá los SETTERS Y GETTERS
+    public ArrayList<Trabajador> getTrabajadores() {
+        return trabajadores;
+    }
+
+    public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
+        this.trabajadores = trabajadores;
+    }
+
+    //Inserte acá los métodos (NO LOS GETTER Y SETTERS)
+   public void agregarTrabajador(Trabajador t){
+       
+               trabajadores.add(t);
+    }
+       
+   
+    public void eliminarTrabajador(String ID){
+        for(int i=0;i<trabajadores.size();i++){
+            if(trabajadores.get(i).getCC().equals(ID)){
+              trabajadores.remove(i);
+    }
+}
+    }      
+    public double calcularSalarioQuincenalNomina(){
+        double salariosMensuales= 0;
+        for(int i=0;i<trabajadores.size();i++){
+            salariosMensuales += trabajadores.get(i).salarioQuincenal();
+           
+    }
+        return salariosMensuales;
+    } 
+
+    public double promedioEdadNomina(){
+        double sumaEdad=0;
+        for(int i=0;i<trabajadores.size();i++){
+        sumaEdad += trabajadores.get(i).calcularEdad();
+        }
+        return sumaEdad/trabajadores.size();
+    
+    }
+    
+    public double desviacionEstandarEdadNomina(){
+        double desviacion;
+    double datoacum = 0;    
+    for(int i=0;i<trabajadores.size();i++){
+          datoacum += Math.pow(trabajadores.get(i).calcularEdad() - promedioEdadNomina(),2);  
+    }
+    desviacion = Math.sqrt((1/(trabajadores.size()*1.0)) * datoacum);
+    
+    return desviacion;    
+    }
+
+    
+    public double salarioQuincenalTrabajador(String ID){
+        double salarioQuincenal = 0;
+        for(int i=0;i<trabajadores.size();i++){
+            if(trabajadores.get(i).getCC().equals(ID)){
+                salarioQuincenal=trabajadores.get(i).salarioQuincenal(); 
+                break;
+            }
+            else{
+                salarioQuincenal=-1;
+            }
+            }
+            return salarioQuincenal;
+}
+}
